@@ -12,7 +12,24 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
-
 EXPOSE 22
+
+
+# install nginx
+
+RUN cd /usr/src/
+
+RUN apt-get install -y  build-essential libpcre3 libpcre3-dev zlibc zlib1g zlib1g-dev 
+
+RUN wget http://nginx.org/download/nginx-1.9.0.tar.gz  && tar -xvzf nginx-1.9.0.tar.gz  
+RUN cd /usr/src/nginx-1.9.0  
+RUN ./configure
+RUN make
+RUN make install
+
+
+
+
+
 CMD ["/usr/sbin/sshd", "-D"]
 
