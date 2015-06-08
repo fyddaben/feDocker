@@ -17,15 +17,20 @@ EXPOSE 22
 
 # install nginx
 
-RUN cd /usr/src/
-
 RUN apt-get install -y  build-essential libpcre3 libpcre3-dev zlibc zlib1g zlib1g-dev 
 
-RUN wget http://nginx.org/download/nginx-1.9.0.tar.gz  && tar -xvzf nginx-1.9.0.tar.gz  
-RUN cd /usr/src/nginx-1.9.0  
-RUN ./configure
-RUN make
-RUN make install
+RUN wget -P /usr/src/ http://nginx.org/download/nginx-1.9.0.tar.gz  && tar -xvzf /usr/src/nginx-1.9.0.tar.gz -C /usr/src/ 
+RUN cd /usr/src/nginx-1.9.0/ && ./configure && make && make install  
+
+RUN rm -rf /usr/local/nginx/conf/nginx.conf
+
+COPY ./nginx.conf /usr/local/nginx/conf/ 
+
+RUN mkdir /usr/local/nginx/conf/vhost && mkdir /home/data && mkdir /home/data/test
+
+COPY ./test.mi.com.conf /usr/local/nginx/conf/vhost/ 
+
+COPY ./index.html /home/data/test/ 
 
 
 
