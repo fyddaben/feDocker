@@ -42,6 +42,19 @@ COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 
 
+# install git 
+
+RUN apt-get install -y git vim-gui-common vim-runtime
+
+#安装vim 包管理器
+
+RUN git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+
+COPY .vimrc  /root/ 
+
+RUN cd  ~/.vim/bundle/  && git clone https://github.com/flazz/vim-colorschemes.git
+
 
 CMD ["/usr/bin/supervisord"]
 
