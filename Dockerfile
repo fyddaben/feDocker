@@ -2,7 +2,7 @@
 FROM ubuntu:14.04
 MAINTAINER fyddaben <838730592@qq.com>
  
-RUN apt-get update && apt-get install -y openssh-server
+RUN apt-get update && apt-get install -y openssh-server supervisor 
 RUN mkdir /var/run/sshd
 RUN echo 'root:nicai' | chpasswd
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -34,7 +34,14 @@ COPY ./index.html /home/data/test/
 
 
 
+# config supervisor
+
+RUN mkdir -p /var/log/supervisor
+
+COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 
-CMD ["/usr/sbin/sshd", "-D"]
+
+
+CMD ["/usr/bin/supervisord"]
 

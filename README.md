@@ -2,8 +2,16 @@
 简单配置一个前端开发环境所需要的docker
 
 
-###开启ssh 
+### 建立镜像 
 ```
-docker run -d -p 22 ubuntu:ssh_v1 /etc/init.d/ssh start -D
+docker build -t fe_docker:vtest6 .
+
+```
+
+
+### 运行一个容器
+
+```
+docker run -d -i -t -p 22 -p 80:80 fe_docker:vtest6    
 ```
 
