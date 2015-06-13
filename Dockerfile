@@ -56,5 +56,23 @@ COPY .vimrc  /root/
 RUN cd  ~/.vim/bundle/  && git clone https://github.com/flazz/vim-colorschemes.git
 
 
+
+# 安装前端编译工具,node,gulp,grunt
+
+RUN apt-get install -y npm ruby-full ruby 
+
+RUN ln -s /usr/bin/nodejs /usr/bin/node
+
+RUN npm install -g grunt-cli && npm install -g gulp
+
+#install sass
+
+RUN  gem sources --remove http://rubygems.org/ 
+RUN  gem sources --remove https://rubygems.org/ 
+RUN  gem sources -a https://ruby.taobao.org/
+
+RUN gem  install sass 
+
+
 CMD ["/usr/bin/supervisord"]
 
