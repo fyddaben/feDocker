@@ -1,7 +1,6 @@
-# feDocker
-简单配置一个前端开发环境所需要的docker
+# feDocker: v1.3.1
 
-
+> 简单配置一个前端开发环境所需要的docker
 
 ### 配置内容
 
@@ -13,16 +12,49 @@
 
 - vim (安装了基本的bundle包管理器和一个color-scheme包)
 
-### 建立镜像 
-```
-docker build -t fe_docker:vtest6 .
+- node && npm (包管理工具)
 
-```
+- gulp (前端编译工具)
 
+- grunt(前端编译工具)
+
+- sass(`css` 预编译语言) 
+
+- ruby(`sass` 需要ruby编译环境) 
+
+
+### 建立镜像
+```
+docker build -t fe_docker:v1.3.1 .
+```
 
 ### 运行一个容器
 
 ```
-docker run -d -t -i -p 22 -p 80:80  -v /Users/fanyongdong/work:/home/data  --name volumesss  fe_docker:vtest7
+docker run -d -t -i -p 22 -p 80:80  -v /Users/daben/work:/home/data  --name fe_container  fe_docker:v1.3.1
 ```
+- `/Users/daben/work` 表示宿主机的共享目录。
+- 注意： `mac`电脑或者`win`电脑，由于需要安装`docker` 的运行环境[boot2docker](https://docs.docker.com/installation/mac/) , 而`boot2docker`和宿主机的默认共享目录为`/Users/`.所以这里，最好写`/Users/`下的某个文件夹，作为共享目录
+
+
+- `/home/data`为容器中的共享目录
+
+- `80`端口为 `nginx`  代理使用
+- `22` 端口为`ssh`连接使用
+
+
+### `ssh`连接进行深入操作
+```
+docker ps 
+```
+可以看到
+```
+e1dafad42ce9        fe_docker:v1.3.1    "/usr/bin/supervisor   27 minutes ago      Up 27 minutes       0.0.0.0:80->80/tcp, 0.0.0.0:32769->22/tcp   fe_container
+```
+####其中`container`的`22`端口被随机对应了`boot2docker`的`32769`端口
+```
+ssh root@$(boot2docker ip) -p 32769
+
+```
+就可以进入我们新的`container`里面，进行进一步操作了。
 
