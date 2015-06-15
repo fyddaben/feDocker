@@ -59,7 +59,13 @@ RUN cd  ~/.vim/bundle/  && git clone https://github.com/flazz/vim-colorschemes.g
 
 # 安装前端编译工具,node,gulp,grunt
 
-RUN apt-get install -y npm ruby-full ruby 
+RUN apt-get update
+
+RUN apt-get install -y npm   
+
+RUN apt-get install -y ruby
+
+RUN apt-get install -y ruby-full
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
