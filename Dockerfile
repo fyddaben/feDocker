@@ -44,7 +44,7 @@ COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # install git 
 
-RUN apt-get install -y git vim-gui-common vim-runtime
+RUN apt-get update && apt-get install -y git vim-gui-common vim-runtime
 
 #安装vim 包管理器
 
@@ -73,9 +73,9 @@ RUN npm install -g grunt-cli && npm install -g gulp
 
 #install sass
 
-RUN  gem sources --remove http://rubygems.org/ 
-RUN  gem sources --remove https://rubygems.org/ 
-RUN  gem sources -a https://ruby.taobao.org/
+#RUN  gem sources --remove http://rubygems.org/ 
+#RUN  gem sources --remove https://rubygems.org/ 
+#RUN  gem sources -a https://ruby.taobao.org/
 
 RUN gem  install sass 
 
