@@ -1,6 +1,6 @@
-# feDocker: v1.3.1
+# feDocker: v1.3.2
 
-> 简单配置一个前端开发环境所需要的docker
+> 以下配置，基于docker Beta版(1.11.0),  简单配置一个Mac下，前端开发环境所需要的docker
 
 ### 配置内容
 
