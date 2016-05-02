@@ -1,8 +1,8 @@
 # This is a comment
 FROM ubuntu:14.04
 MAINTAINER fyddaben <838730592@qq.com>
- 
-RUN apt-get update && apt-get install -y openssh-server supervisor 
+
+RUN apt-get update && apt-get install -y openssh-server supervisor
 RUN mkdir /var/run/sshd
 RUN echo 'root:nicai' | chpasswd
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -17,20 +17,20 @@ EXPOSE 22
 
 # install nginx
 
-RUN apt-get install -y  build-essential libpcre3 libpcre3-dev zlibc zlib1g zlib1g-dev 
+RUN apt-get install -y  build-essential libpcre3 libpcre3-dev zlibc zlib1g zlib1g-dev
 
-RUN wget -P /usr/src/ http://nginx.org/download/nginx-1.9.0.tar.gz  && tar -xvzf /usr/src/nginx-1.9.0.tar.gz -C /usr/src/ 
-RUN cd /usr/src/nginx-1.9.0/ && ./configure && make && make install  
+RUN wget -P /usr/src/ http://nginx.org/download/nginx-1.9.0.tar.gz  && tar -xvzf /usr/src/nginx-1.9.0.tar.gz -C /usr/src/
+RUN cd /usr/src/nginx-1.9.0/ && ./configure && make && make install
 
 RUN rm -rf /usr/local/nginx/conf/nginx.conf
 
-COPY ./nginx.conf /usr/local/nginx/conf/ 
+COPY ./nginx.conf /usr/local/nginx/conf/
 
 RUN mkdir /usr/local/nginx/conf/vhost && mkdir /home/data && mkdir /home/data/test
 
-COPY ./test.mi.com.conf /usr/local/nginx/conf/vhost/ 
+COPY ./test.mi.com.conf /usr/local/nginx/conf/vhost/
 
-COPY ./index.html /home/data/test/ 
+COPY ./index.html /home/data/test/
 
 
 
@@ -42,7 +42,7 @@ COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 
 
-# install git 
+# install git
 
 RUN apt-get update && apt-get install -y git vim-gui-common vim-runtime
 
@@ -51,7 +51,7 @@ RUN apt-get update && apt-get install -y git vim-gui-common vim-runtime
 RUN git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 
-COPY .vimrc  /root/ 
+COPY .vimrc  /root/
 
 RUN cd  ~/.vim/bundle/  && git clone https://github.com/flazz/vim-colorschemes.git
 
@@ -61,7 +61,7 @@ RUN cd  ~/.vim/bundle/  && git clone https://github.com/flazz/vim-colorschemes.g
 
 RUN apt-get update
 
-RUN apt-get install -y npm   
+RUN apt-get install -y npm
 
 RUN apt-get install -y ruby
 
@@ -69,15 +69,13 @@ RUN apt-get install -y ruby-full
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-RUN npm install -g grunt-cli && npm install -g gulp
-
 #install sass
 
-#RUN  gem sources --remove http://rubygems.org/ 
-#RUN  gem sources --remove https://rubygems.org/ 
+#RUN  gem sources --remove http://rubygems.org/
+#RUN  gem sources --remove https://rubygems.org/
 #RUN  gem sources -a https://ruby.taobao.org/
 
-RUN gem  install sass 
+RUN gem  install sass
 
 
 CMD ["/usr/bin/supervisord"]

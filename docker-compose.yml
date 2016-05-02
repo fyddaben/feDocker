@@ -1,0 +1,16 @@
+dev:
+  build: .
+
+  command: /usr/bin/supervisord
+
+  ports:
+    - "2024:22"
+  extra_hosts:
+
+    - "www.niu.com:127.0.0.1"
+
+  container_name: "webDev"
+
+  volumes:
+
+    - /Users/daben/work:/home/work/data/www
